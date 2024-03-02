@@ -16,11 +16,7 @@ jobs:
       fail-fast: true
       matrix:
         include:
-          - device: a51
           - device: m21
-          - device: m31
-          - device: m31s
-          - device: f41
     name: "🚧 Build for ${{matrix.device}}"
     steps:
       - name: Checkout source
@@ -40,9 +36,10 @@ jobs:
         run: |
           DEVICE=${{matrix.device}} bash build_kernel.sh
 
-      - name: Upload kernel
-        uses: actions/upload-artifact@v4
+      - name: Upload to Telegram
+        uses: appleboy/telegram-action@master
         with:
-          name: GrassKernel_${{matrix.device}}.zip
-          path: scripts/packaging/Grass*
-
+          to: ${{ secrets.TELEGRAM_CHAT_ID }}
+          token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          document: scripts/packaging/Grass*.zip
+          message: "Grass Build Completed"
