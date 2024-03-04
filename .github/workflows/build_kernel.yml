@@ -2,11 +2,6 @@ name: Test build kernel
 
 on:
   push:
-    branches:
-      Grass
-  pull_request:
-    branches:
-      Grass
   workflow_dispatch:
 
 jobs:
@@ -42,4 +37,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           document: scripts/packaging/Grass*.zip
-          message: "Grass Build Completed"
+          message: "Grass Build For ${{matrix.device}} Completed"
