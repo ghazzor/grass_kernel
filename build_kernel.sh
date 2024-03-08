@@ -8,6 +8,7 @@ export KBUILD_BUILD_USER=Royna
 export KBUILD_BUILD_HOST=GrassLand
 
 PATH=$PWD/toolchain/bin:$PATH
+export LLVM_DIR=$PWD/toolchain/bin
 
 if [ "$1" = "oneui" ]; then
 FLAGS=ONEUI=1
@@ -16,12 +17,33 @@ CONFIG_AOSP=vendor/aosp.config
 fi
 
 if [ -z "$DEVICE" ]; then
-export DEVICE=a51
+export DEVICE=m21
+fi
+
+if [ "$2" = "ksu" ]; then
+CONFIG_KSU=vendor/ksu.config
 fi
 
 rm -rf out
 
-COMMON_FLAGS=" CROSS_COMPILE=aarch64-linux-gnu- CC=clang LD=ld.lld AS=llvm-as AR=llvm-ar OBJDUMP=llvm-objdump READELF=llvm-readelf -j$(nproc)"
+COMMON_FLAGS='
+CC=clang
+LD=ld.lld
+ARCH=arm64
+CROSS_COMPILE=aarch64-linux-gnu-
+CLANG_TRIPLE=aarch64-linux-gnu-
+AR='${LLVM_DIR}/llvm-ar'
+NM='${LLVM_DIR}/llvm-nm'
+AS='${LLVM_DIR}/llvm-as'
+OBJCOPY='${LLVM_DIR}/llvm-objcopy'
+OBJDUMP='${LLVM_DIR}/llvm-objdump'
+READELF='${LLVM_DIR}/llvm-readelf'
+OBJSIZE='${LLVM_DIR}/llvm-size'
+STRIP='${LLVM_DIR}/llvm-strip'
+LLVM_AR='${LLVM_DIR}/llvm-ar'
+LLVM_DIS='${LLVM_DIR}/llvm-dis'
+LLVM_NM='${LLVM_DIR}/llvm-nm'
+'
 
-make O=out $COMMON_FLAGS vendor/${DEVICE}_defconfig vendor/grass.config vendor/${DEVICE}.config $CONFIG_AOSP
+make O=out $COMMON_FLAGS vendor/${DEVICE}_defconfig vendor/grass.config vendor/${DEVICE}.config $CONFIG_AOSP $CONFIG_KSU
 make O=out $COMMON_FLAGS ${FLAGS} -j$(nproc)
