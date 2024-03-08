@@ -27,10 +27,6 @@ elif [ "$2" = "no-ksu" ]; then
   CONFIG_KSU=vendor/no-ksu.config
 fi
 
-
-CONFIG_KSU=vendor/no-ksu.config
-fi
-
 rm -rf out
 
 COMMON_FLAGS='

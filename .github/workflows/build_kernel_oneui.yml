@@ -10,15 +10,9 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        include:
-          - device: a51
-          - device: m21
-          - device: m31
-          - device: m31s
-          - device: f41
-          - varient: ksu
-          - varient: no-ksu
-    name: "🚧 Build for ${{matrix.device}}"
+        device: [a51, m21, m31, m31s, f41]
+        varient: [ksu, no-ksu]
+    name: "🚧 Build for ${{matrix.device}} ${{matrix.varient}}"
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
