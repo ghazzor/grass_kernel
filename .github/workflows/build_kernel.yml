@@ -16,6 +16,8 @@ jobs:
           - device: m31
           - device: m31s
           - device: f41
+          - varient: ksu
+          - varient: no-ksu
     name: "🚧 Build for ${{matrix.device}}"
     steps:
       - name: Checkout source
@@ -34,9 +36,10 @@ jobs:
       - name: Run build
         run: |
           export DEVICE=${{matrix.device}}
-          DEVICE=${{matrix.device}} bash build_kernel.sh
-          cd scripts/packaging 
-          touch Grass_Aosp_${{matrix.device}}
+          DEVICE=${{matrix.device}} bash build_kernel.sh ${{matrix.varient}}
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-AOSP-${{matrix.device}}_${{matrix.varient}}_${TIME}.zip
 
       - name: Upload kernel
         uses: actions/upload-artifact@v4
@@ -50,4 +53,4 @@ jobs:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           document: scripts/packaging/Grass*.zip
-          message: "Grass Build (aosp) For ${{matrix.device}} Completed"
+          message: "Grass Build (aosp) For ${{matrix.device}} ${{matrix.varient}} Completed"

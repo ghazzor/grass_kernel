@@ -22,7 +22,13 @@ export DEVICE=m21
 fi
 
 if [ "$2" = "ksu" ]; then
-CONFIG_KSU=vendor/ksu.config
+  CONFIG_KSU=vendor/ksu.config
+elif [ "$2" = "no-ksu" ]; then
+  CONFIG_KSU=vendor/no-ksu.config
+fi
+
+
+CONFIG_KSU=vendor/no-ksu.config
 fi
 
 rm -rf out
