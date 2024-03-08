@@ -59,5 +59,5 @@ FOR="For OneUI5"
 fi
 tg_sendText "<b>${KERNELSTR} Kernel Build</b>%0A${FOR}%0Abranch <code>${BRANCH}</code>%0AUnder commit <code>${COMMITMSG}</code>%0AUsing compiler: <code>${CCSTR}</code>%0AEnded on <code>$(date)</code>"
 tg_sendFile "${KERNELZIP}"
-cd ${srctree}/scripts/packaging/
+cd ${kerneldir}/scripts/packaging
 mv Grass*.zip Grass${SUFFIX}-${DEVICE}_${TIME}.zip

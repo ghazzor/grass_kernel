@@ -9,6 +9,7 @@ export KBUILD_BUILD_HOST=GrassLand
 
 PATH=$PWD/toolchain/bin:$PATH
 export LLVM_DIR=$PWD/toolchain/bin
+export kerneldir=$PWD
 
 if [ "$1" = "oneui" ]; then
 FLAGS=ONEUI=1
