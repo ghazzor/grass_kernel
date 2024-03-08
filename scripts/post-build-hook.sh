@@ -2,7 +2,7 @@
 # script that is called after the build
 
 set -e
-
+echo "Packing Grass for $DEVICE"
 # Telegram functions. Requires CHAT_ID and BOT_TOKEN
 function tg_sendText() {
         curl -s "https://api.telegram.org/bot$BOT_TOKEN/sendMessage" \
@@ -45,7 +45,7 @@ SUFFIX=-AOSP
 else
 SUFFIX=-OneUI
 fi
-KERNELZIP="$(echo "${KERNELSTR}" | sed s/^.*-//)${SUFFIX}-${DEVICE}_${TIME}.zip"
+KERNELZIP="$(echo "${KERNELSTR}" | sed s/^.*-//)${SUFFIX}-$DEVICE_${TIME}.zip"
 COMMITMSG="$(git log --pretty=format:'"%h : %s"' -1)"
 BRANCH="$(git branch --show-current)"
 FOR=
