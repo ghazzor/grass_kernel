@@ -33,6 +33,7 @@ jobs:
 
       - name: Run build
         run: |
+          export DEVICE=${{matrix.device}}
           DEVICE=${{matrix.device}} bash build_kernel.sh oneui ksu
           cd scripts/packaging 
           touch Grass_Oneui_${{matrix.device}}
