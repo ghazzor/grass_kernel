@@ -25,10 +25,10 @@ jobs:
       - name: Build m21
         run: |
           rm -rf scripts/packaging/Grass* 
-          DEVICE=m21 bash build_all.sh oneui permissive
+          DEVICE=m21 bash build_all.sh oneui ksu permissive
           cd scripts/packaging
           TIME="$(date "+%Y%m%d")"
-          mv Grass*.zip Grass-OneUI-a51_ksu_${TIME}.zip
+          mv Grass*.zip Grass-OneUI-m21_ksu_${TIME}.zip
       - name: Upload m21 kernel
         uses: actions/upload-artifact@v4
         with:
@@ -38,7 +38,7 @@ jobs:
       - name: Build a51
         run: |
           rm -rf scripts/packaging/Grass* 
-          DEVICE=a51 bash build_all.sh oneui permissive
+          DEVICE=a51 bash build_all.sh oneui ksu permissive
           cd scripts/packaging
           TIME="$(date "+%Y%m%d")"
           mv Grass*.zip Grass-OneUI-a51_ksu_${TIME}.zip
@@ -51,7 +51,7 @@ jobs:
       - name: Build m31
         run: |
           rm -rf scripts/packaging/Grass* 
-          DEVICE=m31 bash build_all.sh oneui permissive
+          DEVICE=m31 bash build_all.sh oneui ksu permissive
           cd scripts/packaging
           TIME="$(date "+%Y%m%d")"
           mv Grass*.zip Grass-OneUI-m31_ksu_${TIME}.zip
@@ -64,7 +64,7 @@ jobs:
       - name: Build m31s
         run: |
           rm -rf scripts/packaging/Grass* 
-          DEVICE=m31s bash build_all.sh oneui permissive
+          DEVICE=m31s bash build_all.sh oneui ksu permissive
           cd scripts/packaging
           TIME="$(date "+%Y%m%d")"
           mv Grass*.zip Grass-OneUI-m31s_ksu_${TIME}.zip
@@ -77,7 +77,7 @@ jobs:
       - name: Build f41
         run: |
           rm -rf scripts/packaging/Grass* 
-          DEVICE=f41 bash build_all.sh oneui permissive
+          DEVICE=f41 bash build_all.sh oneui ksu permissive
           cd scripts/packaging
           TIME="$(date "+%Y%m%d")"
           mv Grass*.zip Grass-OneUI-f41_ksu_${TIME}.zip
