@@ -32,6 +32,7 @@ CONFIG_SELINUX=vendor/permissive.config
 fi
 
 rm -rf out
+make distclean
 
 COMMON_FLAGS='
 CC=clang

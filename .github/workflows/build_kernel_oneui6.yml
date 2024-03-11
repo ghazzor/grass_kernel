@@ -1,0 +1,89 @@
+name: Test build kernel (oneui6)
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+    name: "🚧 Build oneui6"
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Install packages & setup
+        run: |
+          sudo apt update
+          bash <(curl https://gist.githubusercontent.com/roynatech2544/0feeeb35a6d1782b186990ff2a0b3657/raw/b170134a94dac3594df506716bc7b802add2724b/setup.sh)
+          sudo apt install bison flex libssl-dev
+          cp local.config.sample local.config
+          echo "OBJ=arch/arm64/boot/Image" >> local.config
+
+      - name: Build m21
+        run: |
+          rm -rf scripts/packaging/Grass* 
+          DEVICE=m21 bash build_all.sh oneui permissive
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-OneUI-a51_ksu_${TIME}.zip
+      - name: Upload m21 kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrassKernel_oneui_m21_ksu.zip
+          path: scripts/packaging/Grass*
+
+      - name: Build a51
+        run: |
+          rm -rf scripts/packaging/Grass* 
+          DEVICE=a51 bash build_all.sh oneui permissive
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-OneUI-a51_ksu_${TIME}.zip
+      - name: Upload a51 kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrassKernel_oneui_a51_ksu.zip
+          path: scripts/packaging/Grass*
+
+      - name: Build m31
+        run: |
+          rm -rf scripts/packaging/Grass* 
+          DEVICE=m31 bash build_all.sh oneui permissive
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-OneUI-m31_ksu_${TIME}.zip
+      - name: Upload m31 kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrassKernel_oneui_m31_ksu.zip
+          path: scripts/packaging/Grass*
+
+      - name: Build m31s
+        run: |
+          rm -rf scripts/packaging/Grass* 
+          DEVICE=m31s bash build_all.sh oneui permissive
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-OneUI-m31s_ksu_${TIME}.zip
+      - name: Upload m31s kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrassKernel_oneui_m31s_ksu.zip
+          path: scripts/packaging/Grass*
+
+      - name: Build f41
+        run: |
+          rm -rf scripts/packaging/Grass* 
+          DEVICE=f41 bash build_all.sh oneui permissive
+          cd scripts/packaging
+          TIME="$(date "+%Y%m%d")"
+          mv Grass*.zip Grass-OneUI-f41_ksu_${TIME}.zip
+      - name: Upload f41 kernel
+        uses: actions/upload-artifact@v4
+        with:
+          name: GrassKernel_oneui_f41_ksu.zip
+          path: scripts/packaging/Grass*
