@@ -7,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
     name: "🚧 Build oneui6"
     steps:
       - name: Checkout source
