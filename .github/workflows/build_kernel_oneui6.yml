@@ -1,7 +1,6 @@
 name: Test build kernel (oneui6)
 
 on:
-  push:
   workflow_dispatch:
 
 jobs:
