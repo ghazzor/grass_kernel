@@ -30,16 +30,17 @@
 ## Differences From Official Grass
 
 * 4.14.187
-* Uses -O2 instead of -O3 , cuz O3 hurts battery life and thermals
-* configurable cpu freq through defconfig
-* `anxiety` is the default i/o scheduler (better latency)
+* Uses `-O2` instead of `-O3` , cuz O3 hurts battery life and thermals
+* Configurable cpu freq through defconfig
+* `anxiety` is the default i/o scheduler for oneui and `zen` for aosp
 * SLUB_CPU_PARTIAL is disabled (better latency less load spikes)
-* power suspend and wl blocker
+* Power suspend and wl blocker
+* Inline Optmizations kanged from fresh kernel (`a50`)
 
 ## How To Build
 
 You will need ubuntu, git, around 8GB RAM and bla-bla-bla...
-
+or just fork this repo, enable workflows , do your edits and the workflow will build it for you
 ```bash
 # Install dependencies
 $ sudo apt install -y bash git make libssl-dev curl bc pkg-config m4 libtool automake autoconf
