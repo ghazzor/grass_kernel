@@ -20,12 +20,21 @@
 
 * Disable Samsung securities, debug drivers, etc modifications
 * Checkout and rebase against Android common kernel source, Removing Samsung additions to drivers like ext4,f2fs and more
-* Compiled with bleeding edge Neutron Clang 17, with full LLVM binutils, LTO (Link time optimization) and -O3  
+* Compiled with bleeding edge Neutron Clang 19, with full LLVM binutils, LTO (Link time optimization) and -O2  
 * Import Erofs, Incremental FS, BinderFS and several backports.
 * Supports DeX touchpad for corresponding OneUI ports that have DeX ported.
 * Lot of debug codes/configuration Samsung added are removed.
 * Added [wireguard](https://www.wireguard.com/) driver, an open-source VPN driver in-kernel
 * Added [KernelSU](https://kernelsu.org/)
+
+## Differences From Official Grass
+
+* 4.14.187
+* Uses -O2 instead of -O3 , cuz O3 hurts battery life and thermals
+* configurable cpu freq through defconfig
+* `anxiety` is the default i/o scheduler (better latency)
+* SLUB_CPU_PARTIAL is disabled (better latency less load spikes)
+* power suspend and wl blocker
 
 ## How To Build
 
@@ -54,6 +63,21 @@ $ DEVICE=m21 ./build_kernel.sh aosp # (for M21, AOSP)
 ```
 
 After build the image of the kernel will be in out/arch/arm64/boot/Image
+
+## Optional Stuff
+
+Overclocking / Underclocking CPU
+
+```shell
+# Add there to arch/arm64/configs/vendor/grass.config
+# These are stock values, edit them to your needs
+CONFIG_ARM_MODCLOCK=y
+CONFIG_MAX_FREQ_BIG=2314000
+CONFIG_MIN_FREQ_BIG=936000
+CONFIG_MAX_FREQ_LITTLE=1742000
+CONFIG_MIN_FREQ_LITTLE=403000
+```
+(minium on big cores is 728 mhz and LITTLE cores is 403mhz , setting them any lower is not possible)
 
 ## How To Flash
 
