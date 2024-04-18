@@ -1,6 +1,3 @@
-#/bin/bash
-set -e
-
 [ ! -e "KernelSU/kernel/setup.sh" ] && git submodule init && git submodule update
 [ ! -d "toolchain" ] && echo "Toolchain not avaliable at $(pwd)/toolchain... installing toolchain" && bash setup.sh
 
@@ -69,7 +66,6 @@ make O=out $COMMON_FLAGS ${FLAGS} -j$(nproc)
 echo "  Cleaning Stuff"
 rm -rf ${ANYKERNEL}/Image
 rm -rf ${ANYKERNEL}/config
-rm -rf ${ANYKERNEL}/dtb
 echo "  done"
 echo ""
 echo "  Copying Stuff"
@@ -94,7 +90,6 @@ fi
 
 cp -r out/arch/arm64/boot/Image ${ANYKERNEL}/Image
 cp -r out/.config ${ANYKERNEL}/config
-cp -r out/arch/arm64/boot/dtb_exynos.img ${ANYKERNEL}/dtb
 echo "  done"
 echo ""
 echo "  Zipping Stuff"
