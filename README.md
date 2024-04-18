@@ -46,21 +46,24 @@ or just fork this repo, enable workflows , do your edits and the workflow will b
 $ sudo apt install -y bash git make libssl-dev curl bc pkg-config m4 libtool automake autoconf
 
 # Clone this repository
-$ git clone https://github.com/Gojikovi/kernel_samsung_universal9611
+$ git clone --depth=1 https://github.com/ghazzor/grass_kernel
 
 # Go into the repository
-$ cd kernel_samsung_universal9611
+$ cd grass_kernel
 
 # Install toolchain
 # You could try any clang/LLVM based toolchain, however I use neutron clang
 # If you are using Arch or distro with latest glibc, You may want to use antman instead.
 $ bash <(curl https://gist.githubusercontent.com/roynatech2544/0feeeb35a6d1782b186990ff2a0b3657/raw/b170134a94dac3594df506716bc7b802add2724b/setup.sh)
 
-# If you want to compile the kernel not for A51 then export DEVICE variable to m21, m31, m31s, f41
+# If you want to compile the kernel not for m21 then export DEVICE variable to a51, m31, m31s, f41
 # Build the kernel
-$ ./build_kernel.sh aosp # (for AOSP)
-$ ./build_kernel.sh oneui # (for OneUI)
-$ DEVICE=m21 ./build_kernel.sh aosp # (for M21, AOSP)
+$ ./build_kernel.sh or ROM=aosp ./build_kernel.sh # (for M21, AOSP , KSU is disabled , enforcing)
+$ ROM=oneui ./build_kernel.sh # (for OneUI)
+$ SELINUX=p ./build_kernel.sh # (for permissive)
+$ SELINUX=e ./build_kernel.sh # (for enforcing (default))
+$ DEVICE=a51 ROM=aosp ./build_kernel.sh # (for A51, AOSP)
+$ KSU=1 ./build_kernel.sh # (for KSU)
 ```
 
 After build the image of the kernel will be in out/arch/arm64/boot/Image
@@ -82,7 +85,7 @@ CONFIG_MIN_FREQ_LITTLE=403000
 
 ## How To Flash
 
-After a successful build, you can see the scripts/packaging/Grass*.zip archive.
+After a successful build, you can see the kernel_zip/Grass*.zip archive.
 This is your kernel. Just flash it via TWRP or adb sideload
 
 ## Credits
@@ -91,5 +94,3 @@ This is your kernel. Just flash it via TWRP or adb sideload
 - [Samsung Open Source](https://opensource.samsung.com/)
 - [Android Open Source Project](https://source.android.com/)
 - [The Linux Kernel](https://www.kernel.org/)
-
-

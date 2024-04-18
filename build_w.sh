@@ -50,8 +50,6 @@ exit 1
 fi
 export SELINUX
 
-rm -rf out
-
 COMMON_FLAGS='CC=clang LD=ld.lld ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu- AR='${LLVM_DIR}/llvm-ar' NM='${LLVM_DIR}/llvm-nm' AS='${LLVM_DIR}/llvm-as' OBJCOPY='${LLVM_DIR}/llvm-objcopy' OBJDUMP='${LLVM_DIR}/llvm-objdump' READELF='${LLVM_DIR}/llvm-readelf' OBJSIZE='${LLVM_DIR}/llvm-size' STRIP='${LLVM_DIR}/llvm-strip' LLVM_AR='${LLVM_DIR}/llvm-ar' LLVM_DIS='${LLVM_DIR}/llvm-dis' LLVM_NM='${LLVM_DIR}/llvm-nm''
 
 mkdir -p kernel_zip
