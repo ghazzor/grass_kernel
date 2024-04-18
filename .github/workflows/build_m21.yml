@@ -22,10 +22,14 @@ jobs:
       - name: Install packages & setup
         run: |
           sudo apt update
-          bash <(curl https://gist.githubusercontent.com/roynatech2544/0feeeb35a6d1782b186990ff2a0b3657/raw/b170134a94dac3594df506716bc7b802add2724b/setup.sh)
-          sudo apt install bison flex libssl-dev
-          cp local.config.sample local.config
-          echo "OBJ=arch/arm64/boot/Image" >> local.config
+          sudo apt install bison flex libssl-dev python3 python-is-python3 libarchive-tools -y
+          mkdir -p toolchain
+          cd toolchain
+          echo 'Download antman and sync'
+          bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") -S=05012024
+          echo 'Patch for glibc'
+          bash <(curl -s "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman") --patch=glibc
+          echo 'Done'
 
       - name: Run build
         run: |
@@ -36,12 +40,12 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GrassKernel_aosp_${{matrix.device}}_${{matrix.varient}}.zip
-          path: scripts/packaging/Grass*
+          path: tools/build/akv3/GRASS*
 
       - name: Upload to Telegram
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_CHAT_ID }}
           token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          document: scripts/packaging/Grass*.zip
+          document: tools/build/akv3/Grass*.zip
           message: "Grass Build (aosp) For ${{matrix.device}} ${{matrix.varient}} Completed"
