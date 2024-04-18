@@ -38,14 +38,14 @@ ${HOSTCC} ${srctree}/scripts/kernelversion.c -Iinclude/generated/ -o scripts/ccv
 KERNELSTR="$(echo "$(./scripts/kernelversion)" | sed 's/@.*//')"
 CCSTR="$(./scripts/ccversion)"
 MY_PWD=$(pwd)
-TIME="$(date "+%Y%m%d")"
+export TIME="$(date "+%Y%m%d")"
 SUFFIX=
 if [ -z "${ONEUI}" ]; then
 SUFFIX=-AOSP
 else
 SUFFIX=-OneUI
 fi
-KERNELZIP="$(echo "${KERNELSTR}" | sed s/^.*-//)${SUFFIX}-$DEVICE_${TIME}.zip"
+KERNELZIP="$(echo "${KERNELSTR}" | sed s/^.*-//)${SUFFIX}-$DEVICE_${KSUSTAT}_${SESTAT}_${TIME}.zip"
 COMMITMSG="$(git log --pretty=format:'"%h : %s"' -1)"
 BRANCH="$(git branch --show-current)"
 FOR=

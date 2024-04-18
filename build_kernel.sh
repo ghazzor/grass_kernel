@@ -23,12 +23,17 @@ fi
 
 if [ "$2" = "ksu" ]; then
   CONFIG_KSU=vendor/ksu.config
+export KSUSTAT=KSU
 elif [ "$2" = "no-ksu" ]; then
   CONFIG_KSU=vendor/no-ksu.config
+export KSUSTAT=N
 fi
 
 if [ "$3" = "permissive" ]; then
 CONFIG_SELINUX=vendor/permissive.config
+export SESTAT=P
+else
+export SESTAT=E
 fi
 
 rm -rf out
