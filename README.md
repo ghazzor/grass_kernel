@@ -32,7 +32,7 @@
 * 4.14.187
 * Uses `-O2` instead of `-O3` , cuz O3 hurts battery life and thermals
 * Configurable cpu freq through defconfig
-* `anxiety` is the default i/o scheduler for oneui and `zen` for aosp
+* `anxiety` is the default i/o scheduler for oneui and `cfq` for aosp
 * SLUB_CPU_PARTIAL is disabled (better latency less load spikes)
 * Power suspend and wl blocker
 * Inline Optmizations kanged from fresh kernel (`a50`)
