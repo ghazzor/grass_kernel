@@ -44,7 +44,7 @@ jobs:
       - name: Upload kernel
         uses: actions/upload-artifact@v4
         with:
-          name: GrassKernel_${{matrix.device}}_KSU.zip
+          name: GrassKernel_${{matrix.rom}}_${{matrix.device}}.zip
           path: kernel_zip/
 
       - name: Upload to Telegram
