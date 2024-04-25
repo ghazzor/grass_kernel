@@ -2,7 +2,6 @@ name: build m21 aosp no-ksu
 
 on:
   workflow_dispatch:
-  push:
 jobs:
   build:
     runs-on: ubuntu-latest

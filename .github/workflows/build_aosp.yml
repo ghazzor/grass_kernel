@@ -2,7 +2,8 @@ name: build (AOSP KSU)
 
 on:
   workflow_dispatch:
-
+  push:
+  
 jobs:
   build:
     runs-on: ubuntu-latest
