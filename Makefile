@@ -26,6 +26,10 @@ LC_COLLATE=C
 LC_NUMERIC=C
 export LC_COLLATE LC_NUMERIC
 
+# Good place for some build flags
+ARCH ?= arm64
+LLVM ?= 1
+
 # Avoid interference with shell env settings
 unexport GREP_OPTIONS
 
