@@ -6,6 +6,7 @@ set -e
 
 export KBUILD_BUILD_USER=Royna
 export KBUILD_BUILD_HOST=GrassLand
+export LLVM=1
 
 PATH=$PWD/toolchain/bin:$PATH
 
@@ -21,7 +22,7 @@ fi
 
 rm -rf out
 
-COMMON_FLAGS=" CROSS_COMPILE=aarch64-linux-gnu- CC=clang LD=ld.lld AS=llvm-as AR=llvm-ar OBJDUMP=llvm-objdump READELF=llvm-readelf -j$(nproc)"
+COMMON_FLAGS=" CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi CC=clang LD=ld.lld LLVM=1 AS=llvm-as AR=llvm-ar OBJDUMP=llvm-objdump READELF=llvm-readelf -j$(nproc)"
 
 make O=out $COMMON_FLAGS vendor/${DEVICE}_defconfig vendor/grass.config vendor/${DEVICE}.config vendor/ksu.config $CONFIG_AOSP
 make O=out $COMMON_FLAGS ${FLAGS} -j$(nproc)
