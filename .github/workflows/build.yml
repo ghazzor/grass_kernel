@@ -33,7 +33,7 @@ jobs:
 
       - name: Run build
         run: |
-          DEVICE=${{matrix.device}} ROM=${{matrix.rom}} KSU=${{matrix.ksu}} SELINUX=e bash build_w.sh
+          DEVICE=${{matrix.device}} ROM=${{matrix.rom}} KSU=${{matrix.ksu}} SELINUX=e bash build_kernel.sh
       - name: Upload kernel
         uses: actions/upload-artifact@v4
         with:
